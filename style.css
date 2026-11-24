@@ -1,0 +1,678 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg-top: #f8f1e6;
+  --bg-bottom: #e6d6bf;
+  --ink: #2c241d;
+  --muted: #665b50;
+  --accent: #b4532a;
+  --accent-dark: #8f3e1c;
+  --wall: #f3e4cf;
+  --wall-border: #d7bfa0;
+  --roof: #9e472a;
+  --door: #7c4a2d;
+  --board: #234738;
+  --board-wood: #7a4b2a;
+  --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html, body {
+  min-height: 100%;
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  color: var(--ink);
+  background: linear-gradient(180deg, var(--bg-top) 0%, var(--bg-bottom) 100%);
+  overflow-x: hidden;
+}
+
+#ambientCanvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.stage {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px 16px;
+}
+
+/* Transisi Antar Bagian yang Smooth dan Hidup */
+.scene {
+  position: relative;
+  width: 100%;
+  max-width: 850px;
+  display: none;
+  opacity: 0;
+  transform: translateY(18px) scale(0.985);
+  transition:
+    opacity 0.65s var(--ease-smooth),
+    transform 0.65s var(--ease-smooth);
+}
+
+.scene.active {
+  display: block;
+}
+
+.scene.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.scene.leaving {
+  opacity: 0;
+  transform: translateY(-14px) scale(0.985);
+}
+
+.eyebrow {
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+
+h1 {
+  font-family: "Georgia", serif;
+  font-size: clamp(1.65rem, 3.6vw, 2.25rem);
+  line-height: 1.28;
+  margin-bottom: 10px;
+}
+
+h2 {
+  font-family: "Georgia", serif;
+  font-size: clamp(1.3rem, 2.8vw, 1.75rem);
+  line-height: 1.32;
+  margin-bottom: 12px;
+}
+
+.subtitle {
+  font-size: 0.97rem;
+  line-height: 1.75;
+  color: var(--muted);
+  max-width: 570px;
+  margin: 0 auto 26px;
+}
+
+/* BAGIAN 1: BANGUNAN SEKOLAH & PINTU */
+#sceneBuilding {
+  text-align: center;
+}
+
+.school-building {
+  position: relative;
+  max-width: 520px;
+  margin: 0 auto;
+  transition: transform 0.85s var(--ease-smooth), opacity 0.75s var(--ease-smooth);
+}
+
+.school-building.entering-door {
+  transform: scale(1.12) translateY(-10px);
+  opacity: 0.15;
+}
+
+.sun-glow {
+  position: absolute;
+  top: -24px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 240px;
+  height: 110px;
+  background: radial-gradient(circle, rgba(255, 224, 150, 0.55) 0%, rgba(255, 224, 150, 0) 72%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.roof {
+  position: relative;
+  height: 82px;
+  background: linear-gradient(180deg, #b95a38, var(--roof));
+  clip-path: polygon(8% 100%, 50% 0%, 92% 100%);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 11px;
+}
+
+.school-sign {
+  background: #fffaf2;
+  color: var(--ink);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  padding: 4px 13px;
+  border-radius: 6px;
+  border: 1px solid var(--wall-border);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+}
+
+.wall {
+  background: var(--wall);
+  border: 2px solid var(--wall-border);
+  border-top: none;
+  border-radius: 0 0 12px 12px;
+  padding: 28px 20px 0;
+  display: grid;
+  grid-template-columns: 1fr 140px 1fr;
+  align-items: end;
+  gap: 16px;
+  box-shadow: 0 20px 42px rgba(64, 46, 26, 0.12);
+}
+
+.window-box {
+  align-self: center;
+  margin-bottom: 24px;
+  background: #cfe4ec;
+  border: 4px solid #8a5a3c;
+  border-radius: 8px;
+  height: 88px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 3px;
+  padding: 3px;
+}
+
+.window-pane {
+  background: rgba(255, 255, 255, 0.62);
+  border-radius: 2px;
+  animation: windowShimmer 4.5s ease-in-out infinite alternate;
+}
+
+@keyframes windowShimmer {
+  0% { background: rgba(255, 255, 255, 0.52); }
+  100% { background: rgba(255, 250, 232, 0.82); }
+}
+
+.door-frame {
+  position: relative;
+  height: 188px;
+  background: #2f2318;
+  border: 6px solid #5e3822;
+  border-bottom: none;
+  border-radius: 10px 10px 0 0;
+  perspective: 780px;
+  overflow: hidden;
+}
+
+.door-inside {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, #fff6dc 0%, #e7c796 100%);
+  display: grid;
+  place-items: center;
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.door-leaf {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 0;
+  background: linear-gradient(160deg, #915938, var(--door));
+  color: #fff8ef;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 10px 22px;
+  transform-origin: left center;
+  transition: transform 0.85s var(--ease-smooth), filter 0.3s ease;
+  cursor: pointer;
+}
+
+.door-leaf:hover {
+  filter: brightness(1.07);
+}
+
+.door-leaf.open {
+  transform: rotateY(-108deg);
+}
+
+.door-window {
+  width: 68px;
+  height: 54px;
+  background: #d7ebf2;
+  border: 3px solid #59331d;
+  border-radius: 4px;
+}
+
+.door-knob {
+  position: absolute;
+  right: 14px;
+  top: 54%;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #f5c663;
+  box-shadow: 0 0 0 2px #59331d;
+  transition: transform 0.25s ease;
+}
+
+.door-leaf:hover .door-knob {
+  transform: scale(1.18);
+}
+
+.door-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  background: rgba(0, 0, 0, 0.25);
+  padding: 5px 11px;
+  border-radius: 999px;
+}
+
+.porch-step {
+  height: 16px;
+  width: 92%;
+  margin: 0 auto;
+  background: #cbb69c;
+  border-radius: 0 0 10px 10px;
+}
+
+/* BAGIAN 2: PERTENGAHAN (KELAS, MURID & PAPAN TULIS) */
+.classroom-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.step-pill {
+  font-size: 0.82rem;
+  font-weight: 600;
+  background: #efe3d1;
+  color: var(--accent-dark);
+  padding: 5px 13px;
+  border-radius: 999px;
+}
+
+.classroom-layout {
+  display: grid;
+  grid-template-columns: 215px 1fr;
+  gap: 20px;
+  align-items: end;
+}
+
+.student-stand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.speech-bubble {
+  position: relative;
+  background: #fffdf8;
+  border: 1.5px solid rgba(94, 56, 34, 0.2);
+  border-radius: 16px;
+  padding: 12px 14px;
+  font-size: 0.88rem;
+  line-height: 1.58;
+  color: var(--ink);
+  margin-bottom: 10px;
+  box-shadow: 0 10px 24px rgba(60, 44, 24, 0.08);
+  transition: opacity 0.35s var(--ease-smooth), transform 0.35s var(--ease-smooth);
+}
+
+.speech-bubble.fade-swap {
+  opacity: 0;
+  transform: translateY(6px);
+}
+
+.speech-bubble::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 14px;
+  height: 14px;
+  background: #fffdf8;
+  border-right: 1.5px solid rgba(94, 56, 34, 0.2);
+  border-bottom: 1.5px solid rgba(94, 56, 34, 0.2);
+}
+
+.student-svg {
+  width: 100%;
+  max-width: 175px;
+  height: auto;
+}
+
+/* Animasi Karakter yang Hidup & Lembut */
+.character-breathe {
+  transform-origin: 90px 220px;
+  animation: breatheSoft 3.6s ease-in-out infinite;
+}
+
+.character-breathe-delay {
+  transform-origin: 54px 116px;
+  animation: breatheSoft 3.6s ease-in-out 1.4s infinite;
+}
+
+@keyframes breatheSoft {
+  0%, 100% { transform: translateY(0px) scaleY(1); }
+  50% { transform: translateY(-3px) scaleY(1.012); }
+}
+
+.arm-wave {
+  transform-origin: 118px 114px;
+  animation: pointGentle 2.8s ease-in-out infinite;
+}
+
+@keyframes pointGentle {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(-4deg); }
+}
+
+.eyes-blink {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: blinkNatural 4.8s infinite;
+}
+
+@keyframes blinkNatural {
+  0%, 46%, 50%, 96%, 100% { transform: scaleY(1); }
+  48%, 98% { transform: scaleY(0.12); }
+}
+
+.heart-float {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: heartPulse 2.4s ease-in-out infinite;
+}
+
+@keyframes heartPulse {
+  0%, 100% { transform: translateY(0px) scale(1); }
+  50% { transform: translateY(-4px) scale(1.16); }
+}
+
+.blackboard-frame {
+  background: #fcfaf5;
+  border-radius: 20px;
+  padding: 18px;
+  border: 1px solid rgba(85, 68, 48, 0.14);
+  box-shadow: 0 18px 38px rgba(55, 40, 24, 0.1);
+}
+
+.blackboard {
+  position: relative;
+  background: radial-gradient(circle at top left, #2c5745 0%, var(--board) 75%);
+  border: 10px solid var(--board-wood);
+  border-radius: 12px;
+  padding: 26px 24px 38px;
+  color: #f7f6ee;
+  min-height: 265px;
+  box-shadow: inset 0 0 26px rgba(0, 0, 0, 0.28);
+}
+
+.chalk-date {
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+  color: #ffe29a;
+  margin-bottom: 10px;
+}
+
+.chalk-content {
+  transition: opacity 0.35s var(--ease-smooth), transform 0.35s var(--ease-smooth);
+}
+
+.chalk-content.fade-swap {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.chalk-title {
+  color: #ffffff;
+  margin-bottom: 14px;
+}
+
+.chalk-text {
+  font-size: 1rem;
+  line-height: 1.82;
+  color: rgba(250, 249, 242, 0.95);
+}
+
+.chalk-tray {
+  position: absolute;
+  bottom: 8px;
+  right: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.chalk-stick {
+  width: 22px;
+  height: 5px;
+  border-radius: 3px;
+}
+
+.chalk-stick.white {
+  background: #f5f5f0;
+}
+
+.chalk-stick.yellow {
+  background: #ffd97d;
+}
+
+.board-eraser {
+  width: 28px;
+  height: 10px;
+  border-radius: 3px;
+  background: #a46b43;
+  border-bottom: 3px solid #3c3a37;
+}
+
+.classroom-controls {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+/* BAGIAN 3: PENUTUP */
+.ending-panel {
+  max-width: 670px;
+  margin: 0 auto;
+  background: #fcfaf5;
+  border: 1px solid rgba(85, 68, 48, 0.14);
+  border-radius: 22px;
+  padding: 30px 24px;
+  text-align: center;
+  box-shadow: 0 20px 44px rgba(55, 40, 24, 0.1);
+}
+
+.together-box {
+  background: #f6efe3;
+  border-radius: 16px;
+  padding: 14px 16px;
+  margin-bottom: 20px;
+  border: 1px solid rgba(85, 68, 48, 0.1);
+}
+
+.together-svg {
+  width: 100%;
+  max-width: 340px;
+  height: auto;
+}
+
+.together-caption {
+  font-size: 0.86rem;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+.gift-section {
+  background: #f6e7dc;
+  border: 1px solid rgba(180, 83, 42, 0.22);
+  border-radius: 16px;
+  padding: 20px 18px;
+  margin-bottom: 18px;
+}
+
+.gift-heading {
+  font-size: 0.96rem;
+  font-weight: 700;
+  color: var(--accent-dark);
+  margin-bottom: 6px;
+}
+
+.gift-hint {
+  font-size: 0.92rem;
+  margin-bottom: 14px;
+}
+
+/* Animasi Buka Hadiah yang Lembut (Max-Height & Opacity) */
+.gift-ticket {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transform: translateY(-6px);
+  transition:
+    max-height 0.65s var(--ease-smooth),
+    opacity 0.55s var(--ease-smooth),
+    transform 0.55s var(--ease-smooth),
+    margin-top 0.55s var(--ease-smooth);
+}
+
+.gift-ticket.open {
+  max-height: 320px;
+  opacity: 1;
+  transform: translateY(0);
+  margin-top: 16px;
+}
+
+.gift-ticket-inner {
+  background: #fffdf9;
+  border: 1.5px dashed var(--accent);
+  border-radius: 14px;
+  padding: 16px;
+  text-align: left;
+}
+
+.ticket-badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  background: var(--accent);
+  color: #fffaf4;
+  padding: 4px 10px;
+  border-radius: 999px;
+  margin-bottom: 8px;
+}
+
+.gift-ticket h3 {
+  font-family: "Georgia", serif;
+  font-size: 1.05rem;
+  margin-bottom: 6px;
+}
+
+.gift-ticket p {
+  font-size: 0.92rem;
+  line-height: 1.65;
+  margin-bottom: 6px;
+}
+
+.gift-ticket small {
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.ending-song-box {
+  background: #f4ede1;
+  border-radius: 14px;
+  padding: 14px;
+  margin-bottom: 18px;
+}
+
+.song-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--accent-dark);
+  margin-bottom: 8px;
+}
+
+audio {
+  width: 100%;
+  max-width: 360px;
+  height: 38px;
+}
+
+.ending-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+button {
+  cursor: pointer;
+  border-radius: 999px;
+  padding: 10px 22px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  transition:
+    transform 0.28s var(--ease-smooth),
+    background 0.28s var(--ease-smooth),
+    box-shadow 0.28s var(--ease-smooth);
+}
+
+button:hover {
+  transform: translateY(-2px);
+}
+
+button:active {
+  transform: translateY(0px) scale(0.98);
+}
+
+.btn-main {
+  border: none;
+  background: var(--accent);
+  color: #fffaf4;
+  box-shadow: 0 6px 16px rgba(180, 83, 42, 0.22);
+}
+
+.btn-main:hover {
+  background: var(--accent-dark);
+  box-shadow: 0 8px 20px rgba(180, 83, 42, 0.3);
+}
+
+.btn-ghost {
+  border: 1px solid rgba(85, 68, 48, 0.24);
+  background: #f5eee2;
+  color: var(--ink);
+}
+
+.btn-ghost:hover {
+  background: #ede3d3;
+}
+
+@media (max-width: 680px) {
+  .classroom-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .student-stand {
+    max-width: 245px;
+    margin: 0 auto;
+  }
+
+  .wall {
+    grid-template-columns: 1fr 124px 1fr;
+    gap: 10px;
+    padding: 22px 12px 0;
+  }
+}
