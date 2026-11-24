@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Untuk Ibu Gustin — Selamat Hari Guru Nasional</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Partikel cahaya hangat melayang lembut di latar belakang -->
+  <canvas id="ambientCanvas" aria-hidden="true"></canvas>
+
+  <main class="stage">
+    <!-- BAGIAN 1: PEMBUKA (Bangunan Sekolah & Pintu Kelas) -->
+    <section id="sceneBuilding" class="scene active">
+      <div class="scene-inner">
+        <p class="eyebrow">25 November • Hari Guru Nasional</p>
+        <h1>Selamat Datang, Ibu Gustin</h1>
+        <p class="subtitle">
+          Ada ruang kecil yang sengaja aku siapkan khusus untuk Ibu hari ini. Silakan tekan pintu kelas di bawah ini untuk masuk ke dalam, Bu.
+        </p>
+
+        <div id="buildingCard" class="school-building">
+          <div class="sun-glow"></div>
+
+          <div class="roof">
+            <div class="school-sign">KELAS IBU GUSTIN</div>
+          </div>
+
+          <div class="wall">
+            <div class="window-box">
+              <div class="window-pane"></div>
+              <div class="window-pane"></div>
+              <div class="window-pane"></div>
+              <div class="window-pane"></div>
+            </div>
+
+            <div class="door-frame">
+              <div class="door-inside">
+                <span>Silakan Masuk, Bu...</span>
+              </div>
+              <button id="btnDoor" class="door-leaf" aria-label="Tekan pintu untuk masuk ke kelas Ibu Gustin">
+                <span class="door-window"></span>
+                <span class="door-knob"></span>
+                <span class="door-label">Tekan Pintu</span>
+              </button>
+            </div>
+
+            <div class="window-box">
+              <div class="window-pane"></div>
+              <div class="window-pane"></div>
+              <div class="window-pane"></div>
+              <div class="window-pane"></div>
+            </div>
+          </div>
+
+          <div class="porch-step"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BAGIAN 2: PERTENGAHAN (Di Dalam Kelas: Murid & Papan Tulis) -->
+    <section id="sceneClassroom" class="scene">
+      <div class="scene-inner">
+        <div class="classroom-topbar">
+          <span class="eyebrow">Di Dalam Kelas • Untuk Ibu Gustin</span>
+          <span id="boardCounter" class="step-pill">Bagian 1 / 3</span>
+        </div>
+
+        <div class="classroom-layout">
+          <!-- Karakter Murid Perempuan Berdiri Hidup di Samping Papan Tulis -->
+          <div class="student-stand">
+            <div class="speech-bubble" id="studentSpeech">
+              "Selamat pagi, Bu Gustin... Aku sudah menulis beberapa hal di papan tulis ini khusus buat Ibu."
+            </div>
+
+            <svg viewBox="0 0 180 255" class="student-svg" aria-label="Karakter murid perempuan berdiri di samping papan tulis">
+              <ellipse cx="90" cy="240" rx="44" ry="8" fill="#d8c7b2" class="shadow-pulse" />
+
+              <g class="character-breathe">
+                <!-- Kaki & sepatu -->
+                <rect x="74" y="190" width="10" height="38" rx="4" fill="#ffe0c2" />
+                <rect x="96" y="190" width="10" height="38" rx="4" fill="#ffe0c2" />
+                <ellipse cx="79" cy="230" rx="11" ry="6" fill="#2f2621" />
+                <ellipse cx="101" cy="230" rx="11" ry="6" fill="#2f2621" />
+
+                <!-- Rok sekolah -->
+                <path d="M64 148 L116 148 L124 194 L56 194 Z" fill="#5e6b7c" stroke="#3d3028" stroke-width="2.2" />
+
+                <!-- Rambut belakang -->
+                <path d="M52 74 C52 34, 128 34, 128 74 L132 134 C116 140, 64 140, 48 134 Z" fill="#3a2820" />
+
+                <!-- Seragam atasan -->
+                <path d="M62 106 C64 96, 116 96, 118 106 L122 150 L58 150 Z" fill="#fffaf2" stroke="#3d3028" stroke-width="2.2" />
+                <path d="M80 102 L90 118 L100 102" fill="none" stroke="#b4532a" stroke-width="2.4" />
+
+                <!-- Tangan kanan bergerak lembut menunjuk ke papan tulis -->
+                <g class="arm-wave">
+                  <path d="M118 114 L148 96" stroke="#ffe0c2" stroke-width="10" stroke-linecap="round" />
+                  <circle cx="150" cy="95" r="5.5" fill="#ffe0c2" />
+                </g>
+
+                <!-- Tangan kiri -->
+                <path d="M62 114 L48 142" stroke="#ffe0c2" stroke-width="10" stroke-linecap="round" />
+
+                <!-- Kepala -->
+                <ellipse cx="90" cy="74" rx="28" ry="31" fill="#ffe0c2" stroke="#3d3028" stroke-width="2.2" />
+                <!-- Poni -->
+                <path d="M62 66 C68 46, 112 46, 118 66 C108 57, 98 57, 90 66 C82 57, 72 57, 62 66 Z" fill="#3a2820" />
+                <!-- Mata berkedip lembut -->
+                <g class="eyes-blink">
+                  <circle cx="80" cy="76" r="2.8" fill="#2b211b" />
+                  <circle cx="100" cy="76" r="2.8" fill="#2b211b" />
+                </g>
+                <ellipse cx="72" cy="84" rx="5" ry="3" fill="#f29d8b" opacity="0.65" />
+                <ellipse cx="108" cy="84" rx="5" ry="3" fill="#f29d8b" opacity="0.65" />
+                <path d="M83 89 Q90 95 97 89" fill="none" stroke="#3d3028" stroke-width="2.2" stroke-linecap="round" />
+              </g>
+            </svg>
+          </div>
+
+          <!-- Papan Tulis Berisi Ucapan Tulus untuk Ibu Gustin -->
+          <div class="blackboard-frame">
+            <div class="blackboard">
+              <p class="chalk-date">Untuk Wali Kelasku, Ibu Gustin</p>
+              <div id="chalkContent" class="chalk-content">
+                <h2 id="boardHeading" class="chalk-title">Terima Kasih Sudah Menjadi Rumah Kedua di Sekolah</h2>
+                <p id="boardBody" class="chalk-text">
+                  Bu Gustin, mungkin aku jarang mengucapkannya langsung, tapi perhatian dan kesabaran Ibu selama menjadi wali kelas benar-benar terasa. Di saat kami mulai lelah atau bingung melangkah, Ibu selalu hadir menenangkan dan mengarahkan tanpa pernah membuat kami merasa sendirian.
+                </p>
+              </div>
+              <div class="chalk-tray">
+                <span class="chalk-stick white"></span>
+                <span class="chalk-stick yellow"></span>
+                <span class="board-eraser"></span>
+              </div>
+            </div>
+
+            <div class="classroom-controls">
+              <button id="btnPrevBoard" class="btn-ghost">Sebelumnya</button>
+              <button id="btnNextBoard" class="btn-main">Lanjut Baca</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BAGIAN 3: PENUTUP (Murid & Ibu Gustin Berdampingan + Hadiah + Satu Lagu) -->
+    <section id="sceneEnding" class="scene">
+      <div class="scene-inner">
+        <div class="ending-panel">
+          <p class="eyebrow">Penutup • Terima Kasihku untuk Ibu Gustin</p>
+          <h2>Selamat Hari Guru Nasional, Ibu Gustin</h2>
+          <p class="subtitle">
+            Terima kasih sudah sabar mendampingi langkahku dan teman-teman sekelas. Semoga setiap lelah Ibu dibalas kesehatan, kebahagiaan, dan keberkahan yang tidak pernah putus.
+          </p>
+
+          <!-- Kebersamaan Murid Perempuan dan Ibu Gustin -->
+          <div class="together-box">
+            <svg viewBox="0 0 350 175" class="together-svg" aria-label="Karakter Ibu Gustin dan murid perempuan berdampingan">
+              <ellipse cx="175" cy="158" rx="136" ry="10" fill="#e5d5bf" />
+
+              <!-- Karakter Ibu Gustin (Wali Kelas Perempuan - Kiri) -->
+              <g transform="translate(68, 18)" class="character-breathe">
+                <!-- Blazer / Pakaian Guru -->
+                <path d="M22 132 C24 92, 44 80, 66 80 C88 80, 108 92, 110 132 Z" fill="#6b4c5e" stroke="#3d2f26" stroke-width="2.2" />
+                <path d="M54 82 L66 106 L78 82" fill="#f7efe6" />
+                <!-- Kerudung / Hijab Lembut -->
+                <path d="M35 52 C35 20, 97 20, 97 52 L102 98 C86 106, 46 106, 30 98 Z" fill="#d9b8a8" stroke="#3d2f26" stroke-width="2.2" />
+                <!-- Wajah Ibu Gustin -->
+                <ellipse cx="66" cy="52" rx="22" ry="25" fill="#ffe0c2" stroke="#3d2f26" stroke-width="2" />
+                <!-- Mata, pipi, senyum keibuan -->
+                <g class="eyes-blink">
+                  <circle cx="57" cy="53" r="2.7" fill="#2b211b" />
+                  <circle cx="75" cy="53" r="2.7" fill="#2b211b" />
+                </g>
+                <ellipse cx="49" cy="61" rx="4.5" ry="2.8" fill="#f29d8b" opacity="0.6" />
+                <ellipse cx="83" cy="61" rx="4.5" ry="2.8" fill="#f29d8b" opacity="0.6" />
+                <path d="M59 64 Q66 71 73 64" fill="none" stroke="#3d2f26" stroke-width="2.2" stroke-linecap="round" />
+              </g>
+
+              <!-- Hati kecil melayang lembut di antara keduanya -->
+              <path d="M175 68 C175 63, 168 63, 168 68 C168 73, 175 77, 175 77 C175 77, 182 73, 182 68 C182 63, 175 63, 175 68 Z" fill="#d96b43" class="heart-float" />
+
+              <!-- Karakter Murid Perempuan (Kanan) -->
+              <g transform="translate(182, 34)" class="character-breathe-delay">
+                <path d="M20 116 C22 82, 36 72, 54 72 C72 72, 86 82, 88 116 Z" fill="#fffaf2" stroke="#3d2f26" stroke-width="2.2" />
+                <path d="M22 40 C22 14, 86 14, 86 40 L88 90 C74 94, 34 94, 20 90 Z" fill="#3a2820" />
+                <ellipse cx="54" cy="42" rx="22" ry="24" fill="#ffe0c2" stroke="#3d2f26" stroke-width="2.2" />
+                <path d="M32 36 C38 20, 70 20, 76 36 C66 29, 42 29, 32 36 Z" fill="#3a2820" />
+                <g class="eyes-blink">
+                  <circle cx="46" cy="44" r="2.5" fill="#2b211b" />
+                  <circle cx="62" cy="44" r="2.5" fill="#2b211b" />
+                </g>
+                <ellipse cx="39" cy="51" rx="4.5" ry="2.8" fill="#f29d8b" opacity="0.6" />
+                <ellipse cx="69" cy="51" rx="4.5" ry="2.8" fill="#f29d8b" opacity="0.6" />
+                <path d="M48 53 Q54 58 60 53" fill="none" stroke="#3d2f26" stroke-width="2" stroke-linecap="round" />
+              </g>
+            </svg>
+            <p class="together-caption">Bersyukur pernah dibimbing oleh wali kelas sehebat Ibu Gustin</p>
+          </div>
+
+          <!-- Hadiah Kecil untuk Ibu Gustin -->
+          <div class="gift-section">
+            <p class="gift-heading">Hadiah Kecil Tulus untuk Ibu Gustin</p>
+            <p id="giftHint" class="gift-hint">Tekan tombol di bawah ini untuk membuka hadiah kecil dariku, Bu.</p>
+            <button id="btnGift" class="btn-main">Buka Hadiah Kecil</button>
+
+            <div id="giftTicket" class="gift-ticket">
+              <div class="gift-ticket-inner">
+                <span class="ticket-badge">KUPON HADIAH & DOA TULUS</span>
+                <h3>Khusus untuk Ibu Gustin</h3>
+                <p>
+                  <strong>Hadiah Kecil Dariku:</strong> Sebuah kenang-kenangan sederhana pilihan untuk Ibu (buku catatan / buket kecil / camilan kesukaan Ibu), ditemani doa tulusku setiap hari agar Ibu selalu diberi kesehatan, ketenangan hati, dan kebahagiaan.
+                </p>
+                <small>Kamu bisa mengganti detail hadiah di atas pada file <code>index.html</code> sesuai hadiah nyata yang kamu siapkan.</small>
+              </div>
+            </div>
+          </div>
+
+          <!-- Satu Lagu Penutup -->
+          <div class="ending-song-box">
+            <p class="song-title">Lagu Penutup untuk Ibu Gustin</p>
+            <audio id="finalSong" controls preload="metadata">
+              <source src="lagu-penutup.mp3" type="audio/mpeg" />
+              Browser Anda tidak mendukung pemutar audio.
+            </audio>
+          </div>
+
+          <div class="ending-nav">
+            <button id="btnBackToClass" class="btn-ghost">Kembali ke Kelas</button>
+            <button id="btnStartOver" class="btn-ghost">Keluar ke Depan Pintu</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
